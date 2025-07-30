@@ -9,3 +9,5 @@ git status
 git commit -am ""
 git pull
 git push
+
+git clone
