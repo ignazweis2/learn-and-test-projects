@@ -3,14 +3,25 @@ tornando-o o mais eficiente. Não está completo e não é jogável.*/
 
 #include <stdio.h>
 
-int calc(void);
+void player_position(player);
+int calc(limit);
 
 int main (void)
 {
+    // váriaveis criadas na memória
     player[2] = {'X','O'};
     int completion = 0;
-    char p[3][3] = {{'.','.','.'},{'.','.','.'},{'.','.','.'}};
     int limit = 0;
+    char p[3][3];
+    
+    // adiciona um ponto em cada posição do jogo da velha.
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            p[i][j] = '.';
+        }
+    }
 
     while(completion)
     {
