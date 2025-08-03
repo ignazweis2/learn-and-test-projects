@@ -1,3 +1,6 @@
+/* É esperado que eu refaça esse código e melhore as funcionalidades,
+tornando-o o mais eficiente. Não está completo e não é jogável.*/
+
 #include <stdio.h>
 
 int calc(void);
@@ -21,6 +24,7 @@ int main (void)
 
         char buff[3];
         fgets(buff, sizeof(buff), stdin);
+        buff[strcspn(buff, "\n")] = '\0';
 
         limit++;
 
