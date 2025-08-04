@@ -4,78 +4,67 @@ tornando-o o mais eficiente. Não está completo e não é jogável.*/
 #include <stdio.h>
 
 void player_position(player);
-int calc(limit);
+int calc(void);
 
 int main (void)
 {
-    // váriaveis criadas na memória
+    // váriaveis criadas na memória.
     player[2] = {'X','O'};
-    int completion = 0;
+    int end = 0;
     int limit = 0;
-    char p[3][3];
+    char p[9];
     
     // adiciona um ponto em cada posição do jogo da velha.
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 9; i++)
     {
-        for (int j = 0; j < 3; j++)
-        {
-            p[i][j] = '.';
-        }
+            p[i] = '.';
     }
 
-    while(completion)
+    while (end)
     {
-        printf("%c %c %c\n", p[0][0], p[0][1], p[0][2]);
-        printf("%c %c %c\n", p[1][0], p[1][1], p[1][2]);
-        printf("%c %c %c\n", p[2][0], p[2][1], p[2][2]);
+        // escolha o jogador.
+        printf("Qual jogador escolhido primeiro? o\\x\n");
+        printf(": ");
+        char player[2];
+        scanf("%1s", &player);
 
-        printf(":: letras são colunas, números são linhas\n");
-        printf(":: a1,a2,a3,b1,b2,b3,c1,c2,c3");
-        printf("Escolha uma posição: ");
+        printf("%c %c %c\n", p[0], p[1], p[2]);
+        printf("%c %c %c\n", p[3], p[4], p[5]);
+        printf("%c %c %c\n", p[6], p[7], p[8]);
+
+        printf("\n1a 1b 1c\n2a 2b 2c\n3a 3b 3c\n");
+        printf(": ");
 
         char buff[3];
-        fgets(buff, sizeof(buff), stdin);
-        buff[strcspn(buff, "\n")] = '\0';
-
-        limit++;
-
-        completion = calc();
+        scanf("%2s", &player);
+        
+        end = calc();
     }
+}
 
-    if(completion == 1)
+int calc(void)
+{  
+    if ((p[0] == player && p[1] == player && p[2] == player) ||
+        (p[3] == player && p[4] == player && p[5] == player) ||
+        (p[6] == player && p[7] == player && p[8] == player) ||
+
+        (p[0] == player && p[3] == player && p[6] == player) ||
+        (p[1] == player && p[4] == player && p[7] == player) ||
+        (p[2] == player && p[5] == player && p[8] == player) ||
+
+        (p[0] == player && p[4] == player && p[8] == player) ||
+        (p[6] == player && p[4] == player && p[2] == player))
+        {
+            return 1;
+        } 
+}
+
+void player_position(player, buff)
+{
+    char n[9][3] = {"1a","1b","1c","2a","2b","2c","3a","3b","3c"}
+    for (i = 0; i < 9; i++)
     {
-        printf("() You won\n", player);
+        if (n[i] == buff) {p[i] = player;}
     }
-    
 
-}
-
-int calc(limit)
-{
-    if(limit == 6)
-    {   
-        if(p[0][0] == player && p[0][1] == player && p[0][2] == player) {return 1};
-        if(p[1][0] == player && p[1][1] == player && p[1][2] == player) {return 1};
-        if(p[2][0] == player && p[2][1] == player && p[2][2] == player) {return 1};
-
-        if(p[0][0] == player && p[1][0] == player && p[2][0] == player) {return 1};
-        if(p[0][1] == player && p[1][1] == player && p[2][1] == player) {return 1};
-        if(p[0][2] == player && p[1][2] == player && p[2][2] == player) {return 1};
-
-        if(p[0][0] == player && p[1][1] == player && p[2][2] == player) {return 1};
-        if(p[2][0] == player && p[1][1] == player && p[0][2] == player) {return 1};
-    }    
-}
-
-void player_position(player)
-{
-    if ("a1" == buff) {p[0][0] = player;}
-    if ("a2" == buff) {p[1][0] = player;}
-    if ("a3" == buff) {p[2][0] = player;}
-    if ("b1" == buff) {p[0][1] = player;}
-    if ("b2" == buff) {p[1][1] = player;}
-    if ("b3" == buff) {p[2][1] = player;}
-    if ("c1" == buff) {p[0][2] = player;}
-    if ("c2" == buff) {p[1][2] = player;}
-    if ("c3" == buff) {p[2][2] = player;}
 }
