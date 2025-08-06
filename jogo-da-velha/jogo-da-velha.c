@@ -5,7 +5,7 @@ tornando-o o mais eficiente. Não está completo e não é jogável.*/
 #include <string.h>
 
 void player_position(char player, char buff[], int i, char n[][3], char p[])
-int calc(char p)
+int calc(char p[], move)
 
 int main (void)
 {
@@ -49,7 +49,7 @@ int main (void)
         }
 
         //caso alguém ganhe finalize o while com a variável end
-        end = calc(p[]);
+        end = calc(p[], move);
 
         if (end == 1)
         {
@@ -66,7 +66,7 @@ int main (void)
     }
 }
 
-int calc(char p)
+int calc(char p[], move)
 {
     if (move = 4)
     {
