@@ -63,6 +63,16 @@ int main (void)
         if (win == 1)
         {
             printf("\n");
+
+           // trocar o jogador.
+            if (player == 'X')
+            {
+                player = 'O';
+            }
+            else
+            {
+                player = 'X';
+            }
             printf("%c ganhou!", player);
             printf("\n");
             return 0;
@@ -116,7 +126,7 @@ int main (void)
             win = calc(p, player);
         }
 
-        // trocar o jogador. 0
+        // trocar o jogador.
         if (player == 'X')
         {
             player = 'O';
