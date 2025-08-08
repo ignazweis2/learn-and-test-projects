@@ -29,6 +29,7 @@ int main (void)
     printf("> ");
     char player;
     scanf("%1c", &player);
+    getchar();
     player = toupper(player);
 
     // verificar se escolha do jogador é válida 0
@@ -66,7 +67,7 @@ int main (void)
             printf("\n");
             return 0;
         }
-        else if (move == 8)
+        else if (move == 9)
         {
             printf("\n");
             printf("Vocês empataram!");
@@ -81,21 +82,33 @@ int main (void)
         scanf("%2s", &buff);
         printf("\n");
 
+        // tratar dados.
+        if(isalpha(buff[0]))
+        {
+            char tmp;
+            tmp = buff[0];
+            buff[0] = buff[1];
+            buff[1] = tmp;
+        }
+
+        if (isupper(p[1]))
+        {
+            buff[1] = tolower(buff[1]);
+        }
+
         // mude o jogo da velha para refletir a opção dada anteriormente.
         char n[9][3] = {"1a","1b","1c","2a","2b","2c","3a","3b","3c"};
+
+        stop_move = true;
         for (int i = 0; i < 9; i++)
-        {
+        { 
             if (strcmp(n[i], buff) == 0 && p[i] == '.')
             {
                 p[i] = player;
-            }
-            else if (found == 0)
-            {
-                stop_move = 1;
-                found = 1;
+                stop_move = false;
+                break;
             }
         }
-        found = 0;
 
         // caso alguém ganhe finalize o while com a variável end. 0
         if (move >= 4)
@@ -103,7 +116,7 @@ int main (void)
             win = calc(p, player);
         }
 
-        // trocar o jogador 0
+        // trocar o jogador. 0
         if (player == 'X')
         {
             player = 'O';
@@ -114,7 +127,7 @@ int main (void)
         }
 
         // adicionar a quantidade de rodadas. 0
-        if (stop_move = 0)
+        if (stop_move == 0)
         {
             move++;
         }
@@ -123,6 +136,7 @@ int main (void)
             stop_move = 0;
         }
     }
+    return 0;
 }
 
 int calc(char p[], char player)
