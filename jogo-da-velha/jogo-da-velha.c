@@ -4,99 +4,95 @@ tornando-o o mais eficiente.
 */
 
 #include <stdio.h>
-#include <string.h>
 #include <ctype.h>
 
 int calc(char p[], char player);
 char change_player(char player);
-void treat_data(char buff[]);
 
 int main (void)
 {
     // váriaveis criadas na memória.
     char p[9];
-    bool win = 0;
+    bool win = false;
     int move = 0;
-    bool stop_move = 0;
-    bool found = 0;
+    bool stop_move = false;
+    bool found = false;
     char player;
     
-    // adiciona um ponto em cada posição do jogo da velha. 0
+    // adiciona um ponto em cada posição do jogo da velha.
     for (int i = 0; i < 9; i++)
     {
         p[i] = '.';
     }
 
-    // escolha o jogador. 0
+    // escolha o jogador.
     printf("Qual jogador escolhido primeiro? [O/X]\n");
     printf("> ");
     scanf("%1c", &player);
     getchar();
+    printf("\n");
     player = toupper(player);
 
-    // verificar se escolha do jogador é válida 0
+    // verificar se escolha do jogador é válida.
     if (player != 'X' && player != 'O')
     {
         printf("\nJogador inválido.\n\n");
         return 1;
     }
 
-    printf("\n");
-    printf("1a │ 1b │ 1c\n");
-    printf("───┼────┼───\n");
-    printf("2a │ 2b │ 2c\n");
-    printf("───┼────┼───\n");
-    printf("3a │ 3b │ 3c\n");
-    printf("\n");
-
     while (true)
     {
         // mostre o jogo da velha.
-        printf("    a   b   c\n");
         printf("  ╔═══╤═══╤═══╗\n");
-        printf("1 ║ %c │ %c │ %c ║\n", p[0], p[1], p[2]);
+        printf("  ║ %c │ %c │ %c ║  1   2   3\n", p[0], p[1], p[2]);
         printf("  ╟───┼───┼───╢\n");
-        printf("2 ║ %c │ %c │ %c ║\n", p[3], p[4], p[5]);
+        printf("  ║ %c │ %c │ %c ║  4   5   6\n", p[3], p[4], p[5]);
         printf("  ╟───┼───┼───╢\n");
-        printf("3 ║ %c │ %c │ %c ║\n", p[6], p[7], p[8]);
+        printf("  ║ %c │ %c │ %c ║  7   8   9\n", p[6], p[7], p[8]);
         printf("  ╚═══╧═══╧═══╝\n");
 
+        if (!(move == 9) && !win)
+        {
+            printf("[%c] player\n", player);
+        }
+
         // verificação se alguém ganhou ou perdeu.
-        if (win == 1)
+        if (win == true)
         {
            // trocar o jogador.
             player = change_player(player);
 
-            printf("\n");
-            printf("%c ganhou!", player);
-            printf("\n");
+            printf("[%c] ganhou!", player);
+            printf("\n\n");
             return 0;
         }
         else if (move == 9)
         {
-            printf("\n");
             printf("Vocês empataram!");
-            printf("\n");
+            printf("\n\n");
             return 0;
         }
 
         printf("> ");
 
         // coloque a opção no buffer.
-        char buff[3];
-        scanf("%2s", &buff);
+        int buff;
+        scanf("%1i", &buff);
+        getchar();
         printf("\n");
 
-        // tratar dados.
-        treat_data(buff);
+        // criar opções no n[9] de 1 a 9.
+        int n[9];
+        for (int i = 0; i < 9; i++)
+        {
+            n[i] = i + 1;
+        }
 
         // mude o jogo da velha para refletir a opção dada anteriormente.
-        char n[9][3] = {"1a","1b","1c","2a","2b","2c","3a","3b","3c"};
-
         stop_move = true;
         for (int i = 0; i < 9; i++)
-        { 
-            if (strcmp(n[i], buff) == 0 && p[i] == '.')
+        {
+            if ((n[i] == buff) && (p[i] == '.'))
             {
                 p[i] = player;
                 stop_move = false;
@@ -104,7 +100,15 @@ int main (void)
             }
         }
 
-        // caso alguém ganhe finalize o while com a variável win. 0
+        // se a jogada é inválida exiba a mensagem.
+        if (stop_move == true)
+        {
+            printf("\n");
+            printf("Jogada inválida.");
+            printf("\n\n");
+        }
+
+        // caso alguém ganhe finalize o while com a variável win.
         if (move >= 4)
         {
             win = calc(p, player);
@@ -113,14 +117,14 @@ int main (void)
         // trocar o jogador.
         player = change_player(player);
 
-        // adicionar a quantidade de rodadas. 0
-        if (stop_move == 0)
+        // adicionar a quantidade de rodadas.
+        if (stop_move == false)
         {
             move++;
         }
         else
         {
-            stop_move = 0;
+            stop_move = false;
         }
     }
     return 0;
@@ -155,20 +159,4 @@ char change_player(char player)
         player = 'X';
     }
     return player;
-}
-
-void treat_data(char buff[])
-{
-    if(isalpha(buff[0]))
-    {
-        char tmp;
-        tmp = buff[0];
-        buff[0] = buff[1];
-        buff[1] = tmp;
-    }
-
-    if (isupper(buff[1]))
-    {
-        buff[1] = tolower(buff[1]);
-    }
 }
