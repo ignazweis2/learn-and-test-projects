@@ -12,12 +12,9 @@ char change_player(char player);
 int main (void)
 {
     // váriaveis criadas na memória.
-    char p[9];
-    bool win = false;
-    int move = 0;
-    bool stop_move = false;
-    bool found = false;
-    char player;
+    char p[9], player;
+    bool win = false, stop_move = false
+    int move = 0, buff;
     
     // adiciona um ponto em cada posição do jogo da velha.
     for (int i = 0; i < 9; i++)
@@ -76,7 +73,6 @@ int main (void)
         printf("> ");
 
         // coloque a opção no buffer.
-        int buff;
         scanf("%1i", &buff);
         getchar();
         printf("\n");
