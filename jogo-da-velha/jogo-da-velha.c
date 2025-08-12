@@ -13,7 +13,7 @@ int main (void)
 {
     // váriaveis criadas na memória.
     char p[9], player;
-    bool win = false, stop_move = false
+    bool win = false, stop_move = false;
     int move = 0, buff;
     
     // adiciona um ponto em cada posição do jogo da velha.
