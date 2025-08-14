@@ -1,5 +1,3 @@
-
-
 # executável
 TARGET = jogo-da-velha
 
@@ -9,13 +7,8 @@ CC = gcc
 # flags de compilação
 CFLAGS = -Wall
 
-# bibliotecas necessárias
-# LIBS = 
-
 # arquivos .c
 SRC = jogo-da-velha.c
-
-# ---
 
 all: $(TARGET)
 
