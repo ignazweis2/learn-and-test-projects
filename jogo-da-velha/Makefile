@@ -11,8 +11,7 @@ CFLAGS = -Wall
 SRC = jogo-da-velha.c
 
 all: $(TARGET)
-
-$(TARGET): $(SRC)
+	$(TARGET): $(SRC)
 	$(CC) $(CFLAGS) $(SRC) -o $(TARGET) 
 
 # limpar arquivos gerados
