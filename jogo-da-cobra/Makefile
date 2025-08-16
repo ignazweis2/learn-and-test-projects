@@ -5,8 +5,7 @@ TARGET = snake
 CC = gcc
 
 # flags de compilação
-CFLAGS = -Wall
-# -lncurses -ltinfo
+CFLAGS = -Wall -lncurses -ltinfo
 
 # arquivos .c
 SRC = snake.c
