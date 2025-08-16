@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #define HEIGHT 25
 #define LENGTH 60
@@ -12,16 +13,29 @@ int main(void)
     char m[HEIGHT][LENGTH];
     create_field(m);
 
-    // mostre na tela a saída do campo.
-    for(int i = 0; i < HEIGHT; i++)
-    {
-        for(int j = 0; j < LENGTH; j++)
-        {
-            printf("%c", m[i][j]);
-        }
-        printf("\n");
-    }
+    int half_height = HEIGHT / 2;
+    int half_length = LENGTH / 2;
 
+    m[half_height][half_length] = 'S';
+
+    while(true)
+    {
+        // mostre na tela a saída do campo.
+        for(int i = 0; i < HEIGHT; i++)
+        {
+            for(int j = 0; j < LENGTH; j++)
+            {
+                printf("%c", m[i][j]);
+            }
+            printf("\n");
+        }
+
+        
+
+        usleep(500000);
+        system("clear");
+
+    }
     return 0;
 }
 
