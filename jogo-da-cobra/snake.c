@@ -7,6 +7,7 @@
 #define LENGTH 60
 
 int create_field(char m[HEIGHT][LENGTH]);
+int move_snake(char m[HEIGHT][LENGTH], int *y, int *x);
 
 int main(void)
 {
@@ -18,15 +19,12 @@ int main(void)
     char m[HEIGHT][LENGTH];
     create_field(m);
 
-    int half_height = HEIGHT / 2;
-    int half_length = LENGTH / 2;
+    // encontra meio do campo, para colocar cobra.
+    int y = HEIGHT / 2;
+    int x = LENGTH / 2;
 
-    int tmp;
-
-    int y = half_height;
-    int x = half_length;
-
-    m[half_height][half_length] = 'S';
+    // colocar cobra.
+    m[y][x] = 'S';
 
     while(true)
     {
@@ -42,35 +40,8 @@ int main(void)
 
         refresh();
 
-        int option = getch();
-        if (option == 'w')
-        {
-            tmp = m[y][x];
-            m[y - 1][x] = tmp;
-            m[y][x] = '.';
-            y = y - 1;
-        }
-        else if (option == 'a')
-        {
-            tmp = m[y][x];
-            m[y][x - 1] = tmp;
-            m[y][x] = '.';
-            x = x - 1;
-        }
-        else if (option == 's')
-        {
-            tmp = m[y][x];
-            m[y + 1][x] = tmp;
-            m[y][x] = '.';
-            y = y + 1;
-        }
-        else if (option == 'd')
-        {
-            tmp = m[y][x];
-            m[y][x + 1] = tmp;
-            m[y][x] = '.';
-            x = x + 1;
-        }
+        move_snake(m, &y, &x);
+
         clear();
     }
     endwin();
@@ -93,5 +64,38 @@ int create_field(char m[HEIGHT][LENGTH])
             }
         }
     }
+    return 0;
+}
+
+int move_snake(char m[HEIGHT][LENGTH], int *y, int *x)
+{
+    int key = getch();
+    int y_var, x_var;
+    if (key == 'w')
+    {
+        y_var = - 1;
+        x_var = 0;
+    }
+    else if (key == 'a')
+    {
+        y_var = 0;
+        x_var = - 1;
+    }
+    else if (key == 's')
+    {
+        y_var = + 1;
+        x_var = 0;
+    }
+    else if (key == 'd')
+    {
+        y_var = 0;
+        x_var = + 1;
+    }
+
+    m[*y + y_var][*x + x_var] = m[*y][*x];
+    m[*y][*x] = '.';
+    *y += y_var;
+    *x += x_var;
+
     return 0;
 }
